@@ -5,19 +5,6 @@ A live, end-to-end data analytics platform tracking 12 government-backed stocks 
 **🔗 [Live Dashboard](https://app.powerbi.com/view?r=eyJrIjoiMWI2NDBjMGMtNjY3Yy00ZTMzLTkwNjktNThmYjdmNWE4YTYzIiwidCI6ImZlZjEwZjBjLTVkY2MtNDU5OC05N2VkLTY2M2MyYmNlNDJhNSJ9)**
 
 ---
-
-## Dashboard Preview
-
-| Nuclear Energy | Currency Appreciation |
-|:-:|:-:|
-| ![Nuclear](screenshots/dashboard_nuclear.png) | ![Currency](screenshots/dashboard_currency.png) |
-
-| Overall Category Performance | Portfolio Diversification |
-|:-:|:-:|
-| ![Category](screenshots/dashboard_category.png) | ![Diversification](screenshots/dashboard_diversification.png) |
-
----
-
 ## Business Problem
 
 A young Indian investor wants to diversify globally across 4 high-conviction sectors — Nuclear Energy, Rare Earth Minerals, Oil, and Automotive — spanning 3 regions (North America, Europe, Asia). But stock returns in USD, GBP, or EUR don't tell the real story. If a US stock gains 20% but the rupee weakens from ₹83 to ₹86 per dollar, the actual INR return is 24.3%, not 20%.
