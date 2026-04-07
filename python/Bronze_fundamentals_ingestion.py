@@ -1,6 +1,6 @@
 import requests, pyodbc, datetime
 
-API_KEY = "db9857b05ca64f90aa9e60f477484592"
+API_KEY = "Your API KEY- DUH its a premium service bro"
 tickers = ['CEG','MP','XOM','F','RR','RBW','SHEL','VOW','BHEL','GMDCLTD','ONGC','TMPV']
 
 conn = pyodbc.connect(
