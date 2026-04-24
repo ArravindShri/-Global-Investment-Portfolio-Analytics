@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: lakehouse_investment_portfolio
+    schema: dbo
+    database: lakehouse_investment_portfolio
+    tables:
+      - name: bronze_stock_prices
+      - name: bronze_forex_rates
+      - name: bronze_stock_fundamentals

@@ -1,0 +1,6 @@
+currency_code,currency_name,currency_country,forex_pair
+USD,US Dollar,USA,USD/INR
+GBP,British Pound,United Kingdom,GBP/INR
+EUR,Euro,Germany,EUR/INR
+INR,Indian Rupee,India,
+KRW,South Korean Won,South Korea,

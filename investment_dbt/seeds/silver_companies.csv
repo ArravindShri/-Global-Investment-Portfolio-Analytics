@@ -1,0 +1,13 @@
+ticker,company_name,country,exchange,currency,category,region
+CEG,Constellation Energy Corporation,USA,NASDAQ,USD,Nuclear,North America
+RR,Rolls-Royce,United Kingdom,LSE,GBP,Nuclear,Europe
+BHEL,Bharat Heavy Electricals Limited,India,NSE,INR,Nuclear,Asia
+MP,MP Materials Corp,USA,NYSE,USD,Rare Earth Minerals,North America
+RBW,Rainbow Rare Earths Limited,United Kingdom,LSE,GBP,Rare Earth Minerals,Europe
+GMDCLTD,Gujarat Mineral Development Corporation,India,NSE,INR,Rare Earth Minerals,Asia
+XOM,Exxon Mobil Corporation,USA,NYSE,USD,Oil,North America
+SHEL,Shell PLC,United Kingdom,LSE,GBP,Oil,Europe
+ONGC,Oil and Natural Gas Corporation,India,NSE,INR,Oil,Asia
+F,Ford Motor Company,USA,NYSE,USD,Automotive,North America
+VOW,Volkswagen AG,Germany,XETRA,EUR,Automotive,Europe
+TMPV,Tata Motors Passenger Vehicles Limited,India,NSE,INR,Automotive,Asia

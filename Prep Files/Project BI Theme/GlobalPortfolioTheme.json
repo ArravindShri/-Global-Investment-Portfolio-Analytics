@@ -1,0 +1,154 @@
+{
+  "name": "Global Portfolio Analytics - Dark",
+  "dataColors": [
+    "#00D4AA",
+    "#0088CC",
+    "#FF6B6B",
+    "#FFD93D",
+    "#6BCB77",
+    "#4D96FF",
+    "#FF8C42",
+    "#C77DFF",
+    "#00B4D8",
+    "#E5E5E5",
+    "#48BFE3",
+    "#F72585"
+  ],
+  "background": "#0D0D1A",
+  "foreground": "#00D4AA",
+  "tableAccent": "#00D4AA",
+  "good": "#6BCB77",
+  "neutral": "#FFD93D",
+  "bad": "#FF6B6B",
+  "maximum": "#00D4AA",
+  "center": "#0D0D1A",
+  "minimum": "#FF6B6B",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI",
+      "color": "#FFFFFF"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#A0A0B8"
+    },
+    "header": {
+      "fontSize": 13,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#FFFFFF"
+    },
+    "label": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI",
+      "color": "#A0A0B8"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "color": {"solid": {"color": "#2A2A40"}},
+            "show": true
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {"solid": {"color": "#A0A0B8"}},
+            "fontSize": 11,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "padding": [
+          {
+            "top": 6,
+            "bottom": 6,
+            "left": 10,
+            "right": 10
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#0D0D1A"}},
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "color": {"solid": {"color": "#2A2A40"}},
+            "show": true
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "color": {"solid": {"color": "#2A2A40"}},
+            "show": true
+          }
+        ]
+      }
+    },
+    "gauge": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "lineClusteredColumnComboChart": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ]
+      }
+    },
+    "barChart": {
+      "*": {
+        "background": [
+          {
+            "color": {"solid": {"color": "#161625"}},
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}
