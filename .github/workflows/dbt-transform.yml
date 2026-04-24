@@ -1,0 +1,106 @@
+﻿name: dbt-investment-portfolio
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  dbt-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check even day
+        id: day_check
+        run: |
+          DAY=$(date +%d)
+          if [ $((DAY % 2)) -ne 0 ]; then
+            echo "Odd day - skipping"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Even day - running"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repo
+        if: steps.day_check.outputs.skip != 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        if: steps.day_check.outputs.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ODBC Driver 18
+        if: steps.day_check.outputs.skip != 'true'
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+          curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+
+      - name: Install dependencies
+        if: steps.day_check.outputs.skip != 'true'
+        run: pip install dbt-fabric msal pyodbc
+
+      - name: Test connection
+        if: steps.day_check.outputs.skip != 'true'
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: |
+          python -c "
+          import os, struct, pyodbc
+          from msal import ConfidentialClientApplication
+          client_id = os.environ['AZURE_CLIENT_ID']
+          tenant_id = os.environ['AZURE_TENANT_ID']
+          client_secret = os.environ['AZURE_CLIENT_SECRET']
+          app = ConfidentialClientApplication(client_id, authority=f'https://login.microsoftonline.com/{tenant_id}', client_credential=client_secret)
+          result = app.acquire_token_for_client(scopes=['https://database.windows.net/.default'])
+          if 'access_token' not in result:
+              print('Auth failed:', result.get('error_description', 'Unknown error'))
+              exit(1)
+          token = result['access_token']
+          token_bytes = token.encode('utf-16-le')
+          token_struct = struct.pack(f'<I{len(token_bytes)}s', len(token_bytes), token_bytes)
+          server = 'bqh7d7wmlwmelf7nmy6cxtscuu-3meh6j254juu3mhsaahgwhxwyi.datawarehouse.fabric.microsoft.com'
+          conn_str = f'DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={server};DATABASE=warehouse_investment_portfolio;'
+          conn = pyodbc.connect(conn_str, attrs_before={1256: token_struct})
+          cursor = conn.cursor()
+          cursor.execute('SELECT 1')
+          print('Connection successful:', cursor.fetchone())
+          conn.close()
+          "
+
+      - name: Create profiles.yml
+        if: steps.day_check.outputs.skip != 'true'
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << 'EOF'
+          investment_dbt:
+            target: prod
+            outputs:
+              prod:
+                type: fabric
+                driver: "ODBC Driver 18 for SQL Server"
+                server: bqh7d7wmlwmelf7nmy6cxtscuu-3meh6j254juu3mhsaahgwhxwyi.datawarehouse.fabric.microsoft.com
+                database: warehouse_investment_portfolio
+                schema: dbo
+                authentication: ActiveDirectoryServicePrincipal
+                tenant_id: "${{ secrets.AZURE_TENANT_ID }}"
+                client_id: "${{ secrets.AZURE_CLIENT_ID }}"
+                client_secret: "${{ secrets.AZURE_CLIENT_SECRET }}"
+                login_timeout: 30
+          EOF
+
+      - name: Run dbt seed
+        if: steps.day_check.outputs.skip != 'true'
+        working-directory: investment_dbt
+        run: dbt seed --target prod
+
+      - name: Run dbt models
+        if: steps.day_check.outputs.skip != 'true'
+        working-directory: investment_dbt
+        run: dbt run --target prod
